@@ -1,13 +1,49 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirm_pwd, setConfirm_pwd] = useState("");
 
-    const login = e => {
+    const cadastrar = e => {
         e.preventDefault();
         console.log("Logou")
+        setDisabled(true);
+        const validaNome = /^[a-zA-Z]{3,}/;
+        const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
+        const validaSenha = /^[0-9a-zA-Z$*&@#]{3,}$/;
+
+        if (!validaNome.test(name)) {
+            return alert("Nome inválido")
+        }
+        if (!validaEmail.test(email)) {
+            return alert('E-mail inválido!');
+        }
+        if (!validaSenha.test(password)) {
+            return alert('Senha inválida! Mínimo de 3 caracteres.');
+        }
+        if (password !== confirm_pwd) {
+            return alert("As senhas se diferem!")
+        }
+        const dados = {
+            name,
+            email,
+            password
+        }
+        const promise = axios.post("http://localhost:5000/cadastrar", dados);
+        promise.then(res => {
+            console.log(res.data);
+            setDisabled(false)
+        })
+        promise.catch(e => {
+            console.log("Não foi possivel encontrar a rota")
+            setDisabled(false)
+        })
     }
 
     return (
@@ -16,29 +52,37 @@ export default function SignIn() {
                 <h1 className="yellow">Ali</h1>
                 <h1 className="red">Driven</h1>
             </div>
-            <form onSubmit={login}>
+            <form onSubmit={cadastrar}>
                 <input
                     type="text"
                     placeholder="Nome"
                     disabled={disabled}
+                    onChange={e => setName(e.target.value)}
+                    value={name}
                     required />
 
                 <input
-                    type="email"
+                    type="email" 
                     placeholder="email"
                     disabled={disabled}
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     required />
 
                 <input
                     type="password"
                     placeholder="Senha"
                     disabled={disabled}
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
                     required />
 
                 <input
                     type="password"
                     placeholder="Confirmar senha"
                     disabled={disabled}
+                    onChange={e => setConfirm_pwd(e.target.value)}
+                    value={confirm_pwd}
                     required />
 
                 <button
