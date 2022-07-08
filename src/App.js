@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route }  from "react-router-dom";
 import { useState } from "react";
-import { UserContext } from "./contexts/UserContexts.js"
-import FeedScreen from "./Screens/FeedScreen.js"
-import SignIn from "./Screens/SignIn.js"
-import SignUp from "./Screens/SignUp.js"
-import CartScreen from "./Screens/CartScreen.js"
-import ProductScreen from "./Screens/ProductScreen.js";
-import PurchasesScreen from "./Screens/PurchasesScreen.js";
+import UserContext from "./contexts/UserContexts"
+import FeedScreen from "./Screens/FeedScreen"
+import SignIn from "./Screens/SignIn"
+import SignUp from "./Screens/SignUp"
+import CartScreen from "./Screens/CartScreen"
+import ProductScreen from "./Screens/ProductScreen";
+import PurchasesScreen from "./Screens/PurchasesScreen";
 
 
 export default function App(){
@@ -14,7 +14,7 @@ export default function App(){
 
     return(
         <BrowserRouter>
-            <UserContext.Proviver value={{token, setToken}}>
+            <UserContext.Provider value={{token, setToken}}>
                 <Routes>
                     <Route path="/" element={<FeedScreen/>} />
                     <Route path="/signin" element={<SignIn/>} />
@@ -23,7 +23,7 @@ export default function App(){
                     <Route path="/product:id" element={<ProductScreen />} />
                     <Route path="/purschases" element={<PurchasesScreen />} />
                 </Routes>
-            </UserContext.Proviver>
+            </UserContext.Provider>
         </BrowserRouter>
     )
 }
