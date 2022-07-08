@@ -8,19 +8,38 @@ export default function ProductScreen() {
     const name = 'macbook';
     const price = 9900;
     return (
+        <Container>
+            <HeadTag>
+                <div className="title">
+                    <h1 className="yellow">Ali</h1>
+                    <h1 className="red">Driven</h1>
+                </div>
+                <Options>
+                    <ion-icon name="person-outline"></ion-icon>
+                    <ion-icon name="cart-outline"></ion-icon>
+                </Options>
 
-        <ProductInfos>
-            <img src={image} alt="macbook" />
-            <div>{name}</div>
-            <div>R${price}</div>
-            <button onClick={()=>console.log('chama função que adiciona item no carrinho, e redireciona para a rota carrinho')}>COMPRAR</button>
-            <Description>Descrição</Description>
-            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim quo possimus labore quos sint corporis minus inventore similique deserunt. Natus debitis consectetur commodi expedita, dignissimos repudiandae consequatur quasi odio doloremque!</div>
-        </ProductInfos>
+            </HeadTag>
+            <ProductInfos>
+                <img src={image} alt="macbook" />
+                <div>{name}</div>
+                <div>R${price}</div>
+                <button onClick={() => console.log('chama função que adiciona item no carrinho, e redireciona para a rota carrinho')}>COMPRAR</button>
+                <Description>Descrição</Description>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim quo possimus labore quos sint corporis minus inventore similique deserunt. Natus debitis consectetur commodi expedita, dignissimos repudiandae consequatur quasi odio doloremque!</div>
+            </ProductInfos>
+        </Container>
+
+
 
     );
 }
-
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+`
 const ProductInfos = styled.div`
     display: flex;
     flex-direction: column;
@@ -30,7 +49,7 @@ const ProductInfos = styled.div`
     width: 100%;
     color: black;
     font-size: 40px;
-    background-color: #d9d0d0;
+    background-color: white;
     img {
         max-width: 300px;
         max-height: 200px;
@@ -65,4 +84,35 @@ const Description = styled.div`
     color: blue;
     margin-bottom: 14px;
     width: 100%;
+`
+
+const HeadTag = styled.div`
+    padding: 16px;
+    background-color: #d9d0d0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .title{
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h1{
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+    }
+    .yellow{
+        color: #ef8f0d;
+    }
+    .red {
+        color: #dd2e1f;
+    }
+`
+const Options = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
 `

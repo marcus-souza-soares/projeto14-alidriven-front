@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        background-color: #d9d0d0;
+        background-color: white;
     }
 
     a{
