@@ -5,7 +5,7 @@ import FeedScreen from "./Screens/FeedScreen"
 import SignIn from "./Screens/SignIn"
 import SignUp from "./Screens/SignUp"
 import CartScreen from "./Screens/CartScreen"
-import ProductScreen from "./Screens/ProductScreen";
+import ProductScreen from "./Screens/ProductScreen.jsx";
 import PurchasesScreen from "./Screens/PurchasesScreen";
 import Reset from './theme/reset.js';
 import GlobalStyle from "./theme/globalstyle.js";
@@ -24,7 +24,7 @@ export default function App(){
                     <Route path="/signin" element={<SignIn/>} />
                     <Route path="/signup" element={<SignUp/>} />
                     <Route path="/cart" element={<CartScreen/>} /> 
-                    <Route path="/product:id" element={<ProductScreen />} />
+                    <Route path="/product/:id" element={<ProductScreen />} />
                     <Route path="/purschases" element={<PurchasesScreen />} />
                 </Routes>
             </UserContext.Provider>

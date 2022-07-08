@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
         bottom:0;
         left: 0;
         right: 0;
-        background-color: #8C11BE;
+        background-color: white;
         font-family: 'Roboto', sans-serif;
     }
     .root{
@@ -19,7 +19,8 @@ const GlobalStyle = createGlobalStyle`
         height: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        background-color: #d9d0d0;
     }
 
     a{
