@@ -9,6 +9,7 @@ export default function FeedScreen() {
     return (
         <>
             <FeedProducts>
+                eita
                 <Product>
                     <img src="https://m.media-amazon.com/images/I/41-RhQeujUL._AC_SL1000_.jpg" alt="Macbook" />
                     <Bottom>
