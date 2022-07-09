@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function Header() {
+  const [side_menu, setSide_menu] = useState(false);
   return (
     <Container>
       <div className="title">
