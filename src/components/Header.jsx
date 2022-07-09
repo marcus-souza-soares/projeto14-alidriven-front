@@ -5,18 +5,28 @@ import { useState } from "react";
 export default function Header() {
   const [side_menu, setSide_menu] = useState(false);
   return (
-    <Container>
-      <div className="title">
-        <h1 className="yellow">Ali</h1>
-        <h1 className="red">Driven</h1>
-      </div>
-      <Options>
-        <ion-icon name="person-outline"></ion-icon>
-        <Link to="/cart">
-          <ion-icon name="cart-outline"></ion-icon>
+    <>
+      <Container>
+        <Link to="/">
+        <div className="title">
+          <h1 className="yellow">Ali</h1>
+          <h1 className="red">Driven</h1>
+        </div>
         </Link>
-      </Options>
-    </Container>
+        <Options>
+          <ion-icon name="person-outline" onClick={() => setSide_menu(!side_menu)}></ion-icon>
+          <Link to="/cart">
+            <ion-icon name="cart-outline"></ion-icon>
+          </Link>
+        </Options>
+      </Container>
+      {side_menu ? <SideMenu>  
+        <div className="profile">
+        <ion-icon name="person-outline" onClick={() => setSide_menu(!side_menu)}></ion-icon>
+        </div>
+        <span><Link to="/signin"><h2>Sign-in</h2></Link>/<h2>Sign-out</h2></span>
+      </SideMenu> : null}
+    </>
   );
 }
 
@@ -49,8 +59,38 @@ const Options = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 60px;
-  ion-icon{
+  ion-icon {
     width: 20px;
     height: 20px;
+  }
+`;
+
+const SideMenu = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 20vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  .profile{
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  ion-icon {
+    width: 30px;
+    height: 30px;
+  }
+  span{
+    display: flex;
   }
 `;
