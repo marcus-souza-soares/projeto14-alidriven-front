@@ -2,8 +2,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+    const navigate = useNavigate();
     const [disabled, setDisabled] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -38,7 +40,8 @@ export default function SignIn() {
         const promise = axios.post("http://localhost:5000/cadastrar", dados);
         promise.then(res => {
             console.log(res.data);
-            setDisabled(false)
+            setDisabled(false);
+            navigate("/signin");
         })
         promise.catch(e => {
             console.log("Não foi possivel encontrar a rota")

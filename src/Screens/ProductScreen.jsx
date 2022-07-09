@@ -20,9 +20,6 @@ export default function ProductScreen() {
                 <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim quo possimus labore quos sint corporis minus inventore similique deserunt. Natus debitis consectetur commodi expedita, dignissimos repudiandae consequatur quasi odio doloremque!</div>
             </ProductInfos>
         </Container>
-
-
-
     );
 }
 const Container = styled.div`
