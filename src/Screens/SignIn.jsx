@@ -1,13 +1,40 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
 
     const login = e => {
         e.preventDefault();
         console.log("Logou")
+        setDisabled(true);
+        const dados = {
+            password,
+            email
+        }
+        const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
+        const validaSenha = /^[0-9a-zA-Z$*&@#]{6,}$/;
+
+        if (!validaEmail.test(email)) {
+            return alert('E-mail inválido!');
+        }
+        if (!validaSenha.test(password)) {
+            return alert('Senha inválida! Mínimo de 3 caracteres.');
+        }
+        const promise = axios.post("http://localhost:5000/login", dados);
+        promise.then(res => {
+            console.log(res.data);
+            setDisabled(false);
+        })
+        promise.catch(e => {
+            console.log(["Não logou ", e]);
+            setDisabled(false);
+        })
+
     }
 
     return (
@@ -21,19 +48,23 @@ export default function SignIn() {
                     type="email"
                     placeholder="email"
                     disabled={disabled}
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
                     required />
 
                 <input
                     type="password"
                     placeholder="Senha"
                     disabled={disabled}
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
                     required />
 
                 <button
                     type="submit"
                     disabled={disabled}>Entrar</button>
             </form>
-            <Link to="/signup" style={{textDecoration:"none"}}>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
                 <h3>Não possui conta? Cadastre-se!</h3>
             </Link>
         </Container>
