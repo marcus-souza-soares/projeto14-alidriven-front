@@ -14,8 +14,9 @@ import Cartlist from "./components/cartList";
 
 export default function App() {
     const [token, setToken] = useState("")
+    const [cart_list, setCart_list] = useState([])
 
-    let cart_list = Cartlist();
+    //let cart_list = Cartlist();
 
     return (
 
@@ -23,7 +24,7 @@ export default function App() {
             <Reset />
             <GlobalStyle />
             <UserContext.Provider value={{ token, setToken }}>
-                <ProductContext.Provider value={{cart_list}}>
+                <ProductContext.Provider value={{cart_list, setCart_list}}>
                     <Routes>
                         <Route path="/" element={<FeedScreen />} />
                         <Route path="/signin" element={<SignIn />} />

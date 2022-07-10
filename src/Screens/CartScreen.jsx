@@ -2,10 +2,30 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import ProductAtCart from "../components/ProductAtCart";
 import ProductContext from "../contexts/ProductContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContexts";
+import axios from "axios";
 
 export default function CartScreen() {
-    const {cart_list} = useContext(ProductContext)
+    const {cart_list, setCart_list} = useContext(ProductContext)
+    const { token } = useContext(UserContext);
+
+    useEffect(() => {
+
+        const permission = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        const promise = axios.get("http://localhost:5000/cart", permission);
+        promise.then(res => {
+            console.log(res.data);
+            setCart_list(res.data.products);
+        });
+        promise.catch(() => {
+            console.log("Não foi possível buscar a lista de carrinhos")
+        })
+    },[token]);
     //LISTA DE ITENS QUE SERÃO COMPRADOS!
 
     const [listToBuy, setListToBuy] = useState([])
