@@ -1,26 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useContext } from "react";
-import ProductContext from "../contexts/ProductContext";
 import axios from "axios"
+import UserContext from "../contexts/UserContexts";
 
 export default function ProductAtCart({ product, listToBuy, setListToBuy }) {
-    const { token } = useContext(ProductContext);
-    const deleteOfCart = () => {
-
-        const permission = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }
-        const promise = axios.delete("http://localhost:5000/cart", permission);
-        promise.then(res => {
-            console.log(res.data)
-        })
-        promise.catch(() => {
-            console.log("Não foi possível deletar o produto");
-        })
-    }
+    const { token } = useContext(UserContext);
     
     const [checked, setChecked] = useState(false);
 
@@ -35,10 +20,25 @@ export default function ProductAtCart({ product, listToBuy, setListToBuy }) {
         setChecked(!checked)
         console.log(listToBuy)
     }
+    const deleteOfCart = () => {
+        const permission = {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+        console.log(token)
+        const promise = axios.delete(`http://localhost:5000/cartItem?id=${product._id}`, permission);
+        promise.then(res => {
+            console.log(res.data);
+        })
+        promise.catch(() => {
+            console.log("Não deletou esse item!")
+        })
+    }
     
     return (
         <Container>
-            <div className="imgAndCheck">
+            <div className="img-and-check">
                 <div className="check" onClick={addTolistToBuy}>
                     {checked ? <ion-icon name="checkmark-outline"></ion-icon> : null}
                 </div>
@@ -65,7 +65,7 @@ const Container = styled.div`
     padding: 0 20px;
     margin-bottom: 5px;
 
-    .imgAndCheck{
+    .img-and-check{
         display: flex;
         align-items: center;
     }

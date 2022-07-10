@@ -24,13 +24,8 @@ export default function FeedScreenTeste() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const permission = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }
-        console.log(permission)
-        const promise = axios.get("http://localhost:5000/products", permission);
+        
+        const promise = axios.get("http://localhost:5000/products");
         promise.then(res => {
             console.log(res.data);
             setProducts(res.data)

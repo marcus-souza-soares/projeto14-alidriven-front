@@ -33,6 +33,7 @@ export default function SignIn() {
         promise.then(res => {
             setDisabled(false);
             setToken(res.data.token);
+            console.log(res.data.token)
             navigate("/");
 
         })

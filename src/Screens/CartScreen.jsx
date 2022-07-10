@@ -25,20 +25,25 @@ export default function CartScreen() {
         promise.catch(() => {
             console.log("Não foi possível buscar a lista de carrinhos")
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[token]);
     //LISTA DE ITENS QUE SERÃO COMPRADOS!
-
     const [listToBuy, setListToBuy] = useState([])
 
     const buy = () => {
-        alert(listToBuy)
+        // //const permission = {
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`
+        //     }
+        // }
+        //const promisse = axios.post("")
     }
     
     return (
         <Container>
             <Header />
-            {cart_list.map((product) => (
-                <ProductAtCart product={product} listToBuy={listToBuy} setListToBuy={setListToBuy}/>
+            {cart_list.map((product, index) => (
+                <ProductAtCart product={product} listToBuy={listToBuy} setListToBuy={setListToBuy} key={index}/>
             ))}
             <button onClick={buy}>Fechar Compra</button>
         </Container>
