@@ -2,23 +2,31 @@ import axios from "axios";
 import { Link, useNavigate, } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import UserContext from '../contexts/UserContexts.js';
+import { addingProduct } from "../functions/addingProduct.js";
 
 
-
-function ProductComponent({ image, name, price, key, navigate }) {
+function ProductComponent({token, product, id, image, name, price, navigate }) {
     return (
         <Product>
-            <img src={image} alt={name} onClick={() => navigate(`/product/${1}`)} />
+            <img src={image} alt={name} onClick={() => navigate(`/product/${id}`)} />
             <div>{name}</div>
             <div>R${price}</div>
-            <button>COMPRAR</button>
+            <button onClick={()=>addingProduct(product, token, navigate)}>COMPRAR</button>
         </Product>
     );
 }
 export default function FeedScreen() {
-    const testVar = [1, 2, 3, 4, 5, 6, 7, 8];
     const navigate = useNavigate();
-    const [products, setProducts] = useState(testVar);
+    const [products,setProducts] = useState([]);
+    const {token} = useContext(UserContext);
+    useEffect(()=>{
+        axios.get('http://localhost:5000/products').then((r)=>{
+            setProducts(r.data);
+        }).catch((r)=>{
+            console.log(r);
+        })
+    },[]);
     return (
         <Container>
             <HeadTag>
@@ -33,7 +41,7 @@ export default function FeedScreen() {
 
             </HeadTag>
             <FeedProducts>
-                {testVar.map((p, i) => <ProductComponent image={"https://m.media-amazon.com/images/I/41-RhQeujUL._AC_SL1000_.jpg"} key={i + 1} name={'Macbook'} price={9900} navigate={navigate} />)}
+                {(products.length>0)? products.map((p, i) => <ProductComponent token={token} product={p} id={p._id} image={p.pictureURL} key={i + 1} name={p.name} price={p.price} navigate={navigate} />):undefined}
             </FeedProducts>
         </Container>
     )
@@ -47,8 +55,8 @@ const Container = styled.div`
 `
 
 const FeedProducts = styled.div`
-    width: 414px;
-    height: 896px;
+    width: 100%;
+    height: fit-content;
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -67,6 +75,7 @@ const Product = styled.div`
     border: 1px solid black;
     padding: 2px;
     margin-right: 6px;
+    margin-bottom: 18px;
     > div:nth-child(3){
         color: brown;
     }

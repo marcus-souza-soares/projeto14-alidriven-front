@@ -6,7 +6,7 @@ import SignIn from "./Screens/SignIn"
 import SignUp from "./Screens/SignUp"
 import CartScreen from "./Screens/CartScreen"
 import ProductScreen from "./Screens/ProductScreen.jsx";
-import PurchasesScreen from "./Screens/PurchasesScreen";
+import PurchasesScreen from "./Screens/PurchasesScreen.jsx";
 import Reset from './theme/reset.js';
 import GlobalStyle from "./theme/globalstyle.js";
 
