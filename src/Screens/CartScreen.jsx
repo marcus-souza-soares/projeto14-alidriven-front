@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import ProductAtCart from "../components/ProductAtCart";
+import UserContext from "../contexts/UserContexts.js";
 
 export default function CartScreen() {
     const cart_list = [

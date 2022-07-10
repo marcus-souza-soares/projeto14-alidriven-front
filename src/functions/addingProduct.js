@@ -14,7 +14,7 @@ export function addingProduct(product, token, navigate){
     }
     axios.put('http://localhost:5000/cart', product, config).then(()=>{
         navigate('/cart');
-    }).catch(()=>{
+    }).catch((r)=>{
         console.log(r.response.data);
         alert('Não foi possível adicionar item no carrinho.');
     });

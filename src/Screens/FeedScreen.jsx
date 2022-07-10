@@ -3,7 +3,8 @@ import { Link, useNavigate, } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
-
+import { addingProduct } from "../functions/addingProduct";
+import UserContext from "../contexts/UserContexts.js";
 
 function ProductComponent({token, product, id, image, name, price, navigate }) {
     return (

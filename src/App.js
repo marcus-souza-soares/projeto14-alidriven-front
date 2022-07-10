@@ -7,6 +7,7 @@ import SignUp from "./Screens/SignUp"
 import CartScreen from "./Screens/CartScreen"
 import ProductScreen from "./Screens/ProductScreen.jsx";
 import PurchasesScreen from "./Screens/PurchasesScreen.jsx";
+import PurchaseScreen from "./Screens/PurchaseScreen.jsx";
 import Reset from './theme/reset.js';
 import GlobalStyle from "./theme/globalstyle.js";
 
@@ -25,7 +26,8 @@ export default function App(){
                     <Route path="/signup" element={<SignUp/>} />
                     <Route path="/cart" element={<CartScreen/>} /> 
                     <Route path="/product/:id" element={<ProductScreen />} />
-                    <Route path="/purschases" element={<PurchasesScreen />} />
+                    <Route path="/purchases" element={<PurchasesScreen />} />
+                    <Route path="/purchases/:id" element={<PurchaseScreen />} />
                 </Routes>
             </UserContext.Provider>
         </BrowserRouter>
