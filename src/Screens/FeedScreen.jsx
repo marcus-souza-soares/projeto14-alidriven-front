@@ -2,6 +2,7 @@ import axios from "axios";
 import { Link, useNavigate, } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import Header from "../components/Header";
 
 
 
@@ -21,17 +22,7 @@ export default function FeedScreen() {
     const [products, setProducts] = useState(testVar);
     return (
         <Container>
-            <HeadTag>
-                <div className="title">
-                    <h1 className="yellow">Ali</h1>
-                    <h1 className="red">Driven</h1>
-                </div>
-                <Options>
-                    <ion-icon name="person-outline"></ion-icon>
-                    <ion-icon name="cart-outline"></ion-icon>
-                </Options>
-
-            </HeadTag>
+            <Header />
             <FeedProducts>
                 {testVar.map((p, i) => <ProductComponent image={"https://m.media-amazon.com/images/I/41-RhQeujUL._AC_SL1000_.jpg"} key={i + 1} name={'Macbook'} price={9900} navigate={navigate} />)}
             </FeedProducts>
@@ -85,35 +76,4 @@ const Product = styled.div`
         background-color: orange;
         border: none;
     }
-`
-
-const HeadTag = styled.div`
-    padding: 16px;
-    background-color: #d9d0d0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    .title{
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    h1{
-        font-family: 'Roboto', sans-serif;
-        font-size: 35px;
-    }
-    .yellow{
-        color: #ef8f0d;
-    }
-    .red {
-        color: #dd2e1f;
-    }
-`
-const Options = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 60px;
 `
