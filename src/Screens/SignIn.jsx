@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContexts";
-import { useContext } from "react";
+
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
     const [password, setPassword] = useState("");
