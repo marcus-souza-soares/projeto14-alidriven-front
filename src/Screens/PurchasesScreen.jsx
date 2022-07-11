@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import UserContext from "../contexts/UserContexts.js";
 
 
-function Order({id,date}){
+function Order({ id, date }) {
     return (
         <>
             <Link to={`/purchases/${id}`}>
@@ -17,27 +17,31 @@ function Order({id,date}){
     )
 }
 
-export default function PurchasesScreen(){
-    const [orders, setOrders]=useState([]);
-    const {token} = useContext(UserContext);
-    useEffect(()=>{
+export default function PurchasesScreen() {
+    const [orders, setOrders] = useState([]);
+    const { token } = useContext(UserContext);
+    useEffect(() => {
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         }
-        axios.get(`http://localhost:5000/orders`, config).then((r)=>{
+        axios.get(`http://localhost:5000/purchases`, config).then((r) => {
             setOrders(r.data);
-        }).catch((r)=>{
+        }).catch((r) => {
             console.log(r);
         })
-    },[])
+    }, [])
     return (
         <Container>
-            <Header/>
+            <Header />
             <Title>SEUS PEDIDOS</Title>
             <OrdersTag>
-                {(orders.length>0)? orders.map((o, i) => <Order  id={o._id} key={i + 1} date={o.date}/>):undefined}
+                <div>
+                    <div>ID do pedido</div>
+                    <div>Data</div>
+                </div>
+                {(orders.length > 0) ? orders.map((o, i) => <Order id={o._id} key={i + 1} date={o.date} />) : undefined}
             </OrdersTag>
         </Container>
     )
@@ -46,9 +50,10 @@ export default function PurchasesScreen(){
 
 const Title = styled.div`
     font-size: 30px;
-    color: blue;
+    color: #dd2e1f;
     margin-bottom: 20px;
     width: 100%;
+    padding: 10px;
 `
 const OrdersTag = styled.div`
     display: flex;
@@ -60,12 +65,19 @@ const OrdersTag = styled.div`
     width: 100%;
     a{
         margin-bottom: 8px;
-        text-decoration: underline;
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 88%;
         font-size: 14px;
+    }
+    > div:nth-child(1){
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 88%;
+        font-size: 20px;
     }
 `
 const Container = styled.div`
@@ -73,4 +85,5 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
 `

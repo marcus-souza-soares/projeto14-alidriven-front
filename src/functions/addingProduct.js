@@ -12,6 +12,8 @@ export function addingProduct(product, token, navigate){
             "Authorization": `Bearer ${token}`
         }
     }
+    console.log(config);
+    console.log(token);
     axios.put('http://localhost:5000/cart', product, config).then(()=>{
         navigate('/cart');
     }).catch((r)=>{
