@@ -4,7 +4,7 @@ import { useContext } from "react";
 import axios from "axios"
 import UserContext from "../contexts/UserContexts";
 
-export default function ProductAtCart({ product, listToBuy, setListToBuy }) {
+export default function ProductAtCart({ product, listToBuy, setListToBuy, setValue, value }) {
     const { token } = useContext(UserContext);
     
     const [checked, setChecked] = useState(false);
@@ -14,8 +14,10 @@ export default function ProductAtCart({ product, listToBuy, setListToBuy }) {
         const add = checked;
         if(add === false){
             setListToBuy([...listToBuy, product])
+            setValue(value + product.price)
         } else {
             setListToBuy([...listToBuy.filter(item => product.id === item.id ? false : true)])
+            setValue(value - product.price)
         }
         setChecked(!checked)
         console.log(listToBuy)

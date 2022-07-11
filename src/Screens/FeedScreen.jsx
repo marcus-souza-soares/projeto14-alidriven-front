@@ -60,7 +60,7 @@ const Product = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: white;
-    width: 13vh;
+    width: 12vh;
     height: 17vh;
     padding: 2px;
     margin-bottom: 20px;

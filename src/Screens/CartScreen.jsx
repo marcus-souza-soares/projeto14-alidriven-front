@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import ProductAtCart from "../components/ProductAtCart";
-import ProductContext from "../contexts/ProductContext";
+import ProductContext from "../contexts/ProductContext.js";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContexts";
 import axios from "axios";
+import Checkout from "../components/Checkout";
 
 export default function CartScreen() {
-    const {cart_list, setCart_list} = useContext(ProductContext)
+    const {cart_list, setCart_list} = useContext(ProductContext);
     const { token } = useContext(UserContext);
 
     useEffect(() => {
@@ -29,23 +30,36 @@ export default function CartScreen() {
     },[token]);
     //LISTA DE ITENS QUE SERÃO COMPRADOS!
     const [listToBuy, setListToBuy] = useState([])
+    //Valor total
+    const [value, setValue] = useState(0);
 
-    const buy = () => {
-        // //const permission = {
-        //     headers: {
-        //         "Authorization": `Bearer ${token}`
-        //     }
-        // }
-        //const promisse = axios.post("")
-    }
-    
+    let payment = "";
+    const [checkout, setCheckout] = useState(false)
+
+       
     return (
         <Container>
             <Header />
-            {cart_list.map((product, index) => (
-                <ProductAtCart product={product} listToBuy={listToBuy} setListToBuy={setListToBuy} key={index}/>
-            ))}
-            <button onClick={buy}>Fechar Compra</button>
+            {cart_list.length > 0 ? cart_list.map((product, index) => (
+                <ProductAtCart 
+                product={product}
+                listToBuy={listToBuy} 
+                setListToBuy={setListToBuy} 
+                key={index} 
+                setValue={setValue}
+                value={value}/>
+            )) : null}
+            <h1 className="valor">{`Valor total: R$ ${value.toFixed(2).replace(".",",")}`}</h1>
+            <button onClick={() => setCheckout(!checkout)}>Fechar Compra</button>
+
+            {checkout ? <Checkout 
+            payment={payment} 
+            checkout={checkout}
+            setCheckout={setCheckout}
+            listToBuy={listToBuy}
+            value={value}
+            /> : null}
+            
         </Container>
     );
 }
@@ -69,5 +83,11 @@ const Container = styled.div`
         background-color: orange;
         border: none;
         margin-bottom: 30px;
+    }
+    .valor {
+        font-size: 20px;
+        font-family: 'Roboto', sans-serif;
+        color: #ff4000;
+        margin-top: 20px;
     }
 `;
