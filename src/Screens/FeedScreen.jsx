@@ -3,44 +3,35 @@ import { Link, useNavigate, } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
-import UserContext from "../contexts/UserContexts";
+import { addingProduct } from "../functions/addingProduct";
+import UserContext from "../contexts/UserContexts.js";
 
-
-
-function ProductComponent({ image, name, price, index, navigate }) {
-    
+function ProductComponent({token, product, id, image, name, price, navigate }) {
     return (
         <Product>
-            <img src={image} alt={name} onClick={() => navigate(`/product/${index}`)} />
+            <img src={image} alt={name} onClick={() => navigate(`/product/${id}`)} />
             <div>{name}</div>
             <div>R${price}</div>
-            <button>COMPRAR</button>
+            <button onClick={()=>addingProduct(product, token, navigate)}>COMPRAR</button>
         </Product>
     );
 }
-export default function FeedScreenTeste() {
-    const { token } = useContext(UserContext)
+export default function FeedScreen() {
     const navigate = useNavigate();
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        
-        const promise = axios.get("http://localhost:5000/products");
-        promise.then(res => {
-            console.log(res.data);
-            setProducts(res.data)
+    const [products,setProducts] = useState([]);
+    const {token} = useContext(UserContext);
+    useEffect(()=>{
+        axios.get('http://localhost:5000/products').then((r)=>{
+            setProducts(r.data);
+        }).catch((r)=>{
+            console.log(r);
         })
-        promise.catch(() => {
-            console.log("Não foi possível obter a lista de produtos!");
-        })
-
-    },[token])
-
+    },[]);
     return (
         <Container>
             <Header />
             <FeedProducts>
-                {products.map((p, i) => <ProductComponent image={p.pictureURL} key={i + 1} name={p.name} price={p.price} navigate={navigate} index={i + 1} />)}
+                {(products.length>0)? products.map((p, i) => <ProductComponent token={token} product={p} id={p._id} image={p.pictureURL} key={i + 1} name={p.name} price={p.price} navigate={navigate} />):undefined}
             </FeedProducts>
         </Container>
     )
@@ -55,8 +46,8 @@ const Container = styled.div`
 
 const FeedProducts = styled.div`
     width: 100%;
-    height: 100%;
-    padding: 15px 0 15px 15px;
+    height: fit-content;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

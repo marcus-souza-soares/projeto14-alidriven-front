@@ -3,21 +3,32 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
+import { addingProduct } from "../functions/addingProduct";
+import UserContext from "../contexts/UserContexts.js";
 
 export default function ProductScreen() {
-    const image = 'https://m.media-amazon.com/images/I/41-RhQeujUL._AC_SL1000_.jpg';
-    const name = 'macbook';
-    const price = 9900;
+    const {id} = useParams();
+    const [product,setProduct] = useState('');
+    const {token} = useContext(UserContext);
+    const navigate = useNavigate();
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/products/${id}`).then((r)=>{
+            setProduct(r.data);
+        }).catch((r)=>{
+            console.log(r);
+            console.log('deu BO');
+        })
+    },[]);
     return (
         <Container>
             <Header/>
             <ProductInfos>
-                <img src={image} alt="macbook" />
-                <div>{name}</div>
-                <div>R${price}</div>
-                <button onClick={() => console.log('chama função que adiciona item no carrinho, e redireciona para a rota carrinho')}>COMPRAR</button>
+                <img src={product.pictureURL} alt={product.name} />
+                <div>{product.name}</div>
+                <div>R${product.price}</div>
+                <button onClick={()=>addingProduct(product, token, navigate)}>COMPRAR</button>
                 <Description>Descrição</Description>
-                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim quo possimus labore quos sint corporis minus inventore similique deserunt. Natus debitis consectetur commodi expedita, dignissimos repudiandae consequatur quasi odio doloremque!</div>
+                <div>{product.description}</div>
             </ProductInfos>
         </Container>
     );
