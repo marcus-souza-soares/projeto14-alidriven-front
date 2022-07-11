@@ -31,7 +31,8 @@ export default function PurchasesScreen() {
         }).catch((r) => {
             console.log(r);
         })
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return (
         <Container>
             <Header />
