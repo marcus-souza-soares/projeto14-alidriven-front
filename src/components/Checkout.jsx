@@ -34,7 +34,6 @@ export default function Checkout({ checkout, setCheckout, listToBuy, value }) {
                 select[i].checked = false;
             }else {
                 select[i].checked = true;
-                payment = select[i].type;
             }
             setRender_payment([...select])
         }
@@ -78,6 +77,7 @@ export default function Checkout({ checkout, setCheckout, listToBuy, value }) {
                     <div className="payment" key={i} onClick={() => {
                         check(i);
                         console.log(payment)
+                        payment = e.type;
                     }}>
                         <div className="check" >
                             {e.checked ? <ion-icon name="checkmark-outline"></ion-icon> : null}
