@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route }  from "react-router-dom";
 import { useState } from "react";
 import UserContext from "./contexts/UserContexts"
-import FeedScreen from "./Screens/FeedScreen"
-import SignIn from "./Screens/SignIn"
-import SignUp from "./Screens/SignUp"
-import CartScreen from "./Screens/CartScreen"
+import FeedScreen from "./Screens/FeedScreen.jsx"
+import SignIn from "./Screens/SignIn.jsx"
+import SignUp from "./Screens/SignUp.jsx"
+import CartScreen from "./Screens/CartScreen.jsx"
 import ProductScreen from "./Screens/ProductScreen.jsx";
 import PurchasesScreen from "./Screens/PurchasesScreen.jsx";
 import PurchaseScreen from "./Screens/PurchaseScreen.jsx";

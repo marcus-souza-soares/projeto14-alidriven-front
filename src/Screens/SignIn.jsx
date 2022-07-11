@@ -1,49 +1,44 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import UserContext from "../contexts/UserContexts.js";
 
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirm_pwd, setConfirm_pwd] = useState("");
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+    const { token, setToken } = useContext(UserContext);
 
-    const cadastrar = e => {
+    const login = e => {
         e.preventDefault();
         console.log("Logou")
         setDisabled(true);
-        const validaNome = /^[a-zA-Z]{3,}/;
+        const dados = {
+            password,
+            email
+        }
         const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
         const validaSenha = /^[0-9a-zA-Z$*&@#]{3,}$/;
 
-        if (!validaNome.test(name)) {
-            return alert("Nome inválido")
-        }
         if (!validaEmail.test(email)) {
             return alert('E-mail inválido!');
         }
         if (!validaSenha.test(password)) {
             return alert('Senha inválida! Mínimo de 3 caracteres.');
         }
-        if (password !== confirm_pwd) {
-            return alert("As senhas se diferem!")
-        }
-        const dados = {
-            name,
-            email,
-            password
-        }
-        const promise = axios.post("http://localhost:5000/cadastrar", dados);
+        const promise = axios.post("http://localhost:5000/login", dados);
         promise.then(res => {
-            console.log(res.data);
-            setDisabled(false)
+            setToken(res.data.token);
+            setDisabled(false);
+            navigate('/');
         })
         promise.catch(e => {
-            console.log("Não foi possivel encontrar a rota")
-            setDisabled(false)
+            console.log(["Não logou ", e]);
+            setDisabled(false);
         })
+
     }
 
     return (
@@ -52,17 +47,9 @@ export default function SignIn() {
                 <h1 className="yellow">Ali</h1>
                 <h1 className="red">Driven</h1>
             </div>
-            <form onSubmit={cadastrar}>
+            <form onSubmit={login}>
                 <input
-                    type="text"
-                    placeholder="Nome"
-                    disabled={disabled}
-                    onChange={e => setName(e.target.value)}
-                    value={name}
-                    required />
-
-                <input
-                    type="email" 
+                    type="email"
                     placeholder="email"
                     disabled={disabled}
                     onChange={e => setEmail(e.target.value)}
@@ -77,20 +64,12 @@ export default function SignIn() {
                     value={password}
                     required />
 
-                <input
-                    type="password"
-                    placeholder="Confirmar senha"
-                    disabled={disabled}
-                    onChange={e => setConfirm_pwd(e.target.value)}
-                    value={confirm_pwd}
-                    required />
-
                 <button
                     type="submit"
                     disabled={disabled}>Entrar</button>
             </form>
-            <Link to="/signin" style={{ textDecoration: "none" }}>
-                <h3>Já tem cadastro? Faça login!</h3>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+                <h3>Não possui conta? Cadastre-se!</h3>
             </Link>
         </Container>
 
