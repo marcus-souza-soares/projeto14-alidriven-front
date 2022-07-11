@@ -28,7 +28,7 @@ export default function PurchaseScreen() {
                 "Authorization": `Bearer ${token}`
             }
         }
-        axios.get(`http://localhost:5000/orders/${id}`,config).then((r)=>{
+        axios.get(`http://localhost:5000/purchases/${id}`,config).then((r)=>{
             setOrder(r.data);
         }).catch((r)=>{
             console.log(r);
