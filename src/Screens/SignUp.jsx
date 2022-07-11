@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
     const navigate = useNavigate();
@@ -11,10 +10,9 @@ export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirm_pwd, setConfirm_pwd] = useState("");
-
+    
     const cadastrar = e => {
         e.preventDefault();
-        console.log("Logou")
         setDisabled(true);
         const validaNome = /^[a-zA-Z]{3,}/;
         const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
@@ -40,8 +38,8 @@ export default function SignIn() {
         const promise = axios.post("http://localhost:5000/cadastrar", dados);
         promise.then(res => {
             console.log(res.data);
-            setDisabled(false);
-            navigate("/signin");
+            setDisabled(false)
+            navigate('/signin');
         })
         promise.catch(e => {
             console.log("Não foi possivel encontrar a rota")

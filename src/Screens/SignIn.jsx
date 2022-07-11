@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContexts";
-import { useContext } from "react";
+
 export default function SignIn() {
+
     const { setToken } = useContext(UserContext);
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState(false);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-
     const login = e => {
         e.preventDefault();
         console.log("Logou")
@@ -21,7 +20,7 @@ export default function SignIn() {
             email
         }
         const validaEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/;
-        const validaSenha = /^[0-9a-zA-Z$*&@#]{6,}$/;
+        const validaSenha = /^[0-9a-zA-Z$*&@#]{3,}$/;
 
         if (!validaEmail.test(email)) {
             return alert('E-mail inválido!');
@@ -31,11 +30,9 @@ export default function SignIn() {
         }
         const promise = axios.post("http://localhost:5000/login", dados);
         promise.then(res => {
-            setDisabled(false);
             setToken(res.data.token);
-            console.log(res.data.token)
-            navigate("/");
-
+            setDisabled(false);
+            navigate('/');
         })
         promise.catch(e => {
             console.log(["Não logou ", e]);
