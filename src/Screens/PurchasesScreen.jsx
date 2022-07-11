@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
@@ -31,7 +31,8 @@ export default function PurchasesScreen() {
         }).catch((r) => {
             console.log(r);
         })
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return (
         <Container>
             <Header />

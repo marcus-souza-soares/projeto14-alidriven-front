@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import UserContext from "../contexts/UserContexts.js";
-
+import { useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContexts";
+import { useContext } from "react";
 export default function SignIn() {
     const [disabled, setDisabled] = useState(false);
     const [password, setPassword] = useState("");
@@ -30,9 +31,11 @@ export default function SignIn() {
         }
         const promise = axios.post("http://localhost:5000/login", dados);
         promise.then(res => {
-            setToken(res.data.token);
             setDisabled(false);
-            navigate('/');
+            setToken(res.data.token);
+            console.log(res.data.token)
+            navigate("/");
+
         })
         promise.catch(e => {
             console.log(["Não logou ", e]);

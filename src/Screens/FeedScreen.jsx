@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, useNavigate, } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
@@ -60,12 +60,13 @@ const Product = styled.div`
     align-items: center;
     justify-content: space-between;
     background-color: white;
-    width: 100px;
-    height: 150px;
-    border: 1px solid black;
+    width: 12vh;
+    height: 17vh;
     padding: 2px;
-    margin-right: 6px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px #464646;
     > div:nth-child(3){
         color: brown;
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
@@ -7,7 +7,7 @@ import { addingProduct } from "../functions/addingProduct";
 import UserContext from "../contexts/UserContexts.js";
 
 export default function ProductScreen() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [product,setProduct] = useState('');
     const {token} = useContext(UserContext);
     const navigate = useNavigate();
@@ -18,6 +18,7 @@ export default function ProductScreen() {
             console.log(r);
             console.log('deu BO');
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
     return (
         <Container>
@@ -31,9 +32,6 @@ export default function ProductScreen() {
                 <div>{product.description}</div>
             </ProductInfos>
         </Container>
-
-
-
     );
 }
 const Container = styled.div`
