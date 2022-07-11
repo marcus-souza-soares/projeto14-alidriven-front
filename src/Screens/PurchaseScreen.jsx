@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../components/Header";
-import { addingProduct } from "../functions/addingProduct";
 import UserContext from "../contexts/UserContexts.js";
 
 

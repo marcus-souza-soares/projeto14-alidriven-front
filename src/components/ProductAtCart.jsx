@@ -4,7 +4,7 @@ import { useContext } from "react";
 import axios from "axios"
 import UserContext from "../contexts/UserContexts";
 
-export default function ProductAtCart({ product, listToBuy, setListToBuy, setValue, value }) {
+export default function ProductAtCart({ product, listToBuy, setListToBuy, setValue, value, setCart_list }) {
     const { token } = useContext(UserContext);
     
     const [checked, setChecked] = useState(false);
@@ -32,10 +32,12 @@ export default function ProductAtCart({ product, listToBuy, setListToBuy, setVal
         const promise = axios.delete(`http://localhost:5000/cartItem?id=${product._id}`, permission);
         promise.then(res => {
             console.log(res.data);
+            setCart_list([...res.data.products])
         })
         promise.catch(() => {
-            console.log("Não deletou esse item!")
+            return console.log("Não deletou esse item!")
         })
+
     }
     
     return (

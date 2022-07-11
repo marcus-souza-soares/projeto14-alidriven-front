@@ -1,10 +1,9 @@
 import axios from "axios";
-import { Link, useNavigate, } from 'react-router-dom';
-import { useState, useContext, useEffect } from 'react';
 
 export function addingProduct(product, token, navigate){
     if(!token){
         alert('Necessário estar logado para adicionar itens no carrinho'); 
+        navigate("/signin");     
         return ;
     }
     const config = {

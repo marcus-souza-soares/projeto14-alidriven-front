@@ -6,10 +6,11 @@ import axios from "axios";
 import UserContext from "../contexts/UserContexts";
 import { useNavigate } from "react-router-dom";
 
-export default function Checkout({ payment, setPayment, checkout, setCheckout, listToBuy, value }) {
+export default function Checkout({ checkout, setCheckout, listToBuy, value }) {
     const { setCart_list } = useContext(ProductContext)
     const { token } = useContext(UserContext)
     const navigate = useNavigate();
+    let payment = "";
     let select =
         [
             {
@@ -33,7 +34,7 @@ export default function Checkout({ payment, setPayment, checkout, setCheckout, l
                 select[i].checked = false;
             }else {
                 select[i].checked = true;
-                payment = select[i].type
+                payment = select[i].type;
             }
             setRender_payment([...select])
         }
@@ -46,6 +47,8 @@ export default function Checkout({ payment, setPayment, checkout, setCheckout, l
                 "Authorization": `Bearer ${token}`
             }
         }
+        console.log(payment)
+
         const promise = axios.post("http://localhost:5000/purchases", {
             products: listToBuy, 
             total: value,

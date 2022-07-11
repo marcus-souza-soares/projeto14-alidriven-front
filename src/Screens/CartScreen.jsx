@@ -6,17 +6,22 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContexts";
 import axios from "axios";
 import Checkout from "../components/Checkout";
+import { useNavigate } from "react-router-dom";
 
 export default function CartScreen() {
     const {cart_list, setCart_list} = useContext(ProductContext);
     const { token } = useContext(UserContext);
-
+    const navigate = useNavigate();
     useEffect(() => {
 
         const permission = {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
+        }
+        if (!token){
+            alert("Você não está logado, faça login primeiro!")
+            navigate("/signin");            
         }
         const promise = axios.get("http://localhost:5000/cart", permission);
         promise.then(res => {
@@ -42,6 +47,7 @@ export default function CartScreen() {
             <Header />
             {cart_list.length > 0 ? cart_list.map((product, index) => (
                 <ProductAtCart 
+                setCart_list={setCart_list}
                 product={product}
                 listToBuy={listToBuy} 
                 setListToBuy={setListToBuy} 
