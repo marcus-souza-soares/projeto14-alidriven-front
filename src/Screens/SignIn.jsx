@@ -28,7 +28,7 @@ export default function SignIn() {
         if (!validaSenha.test(password)) {
             return alert('Senha inválida! Mínimo de 3 caracteres.');
         }
-        const promise = axios.post("http://localhost:5000/login", dados);
+        const promise = axios.post("https://projeto14-alidriven.herokuapp.com/login", dados);
         promise.then(res => {
             setDisabled(false);
             setToken(res.data.token);

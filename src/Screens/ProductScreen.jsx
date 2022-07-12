@@ -12,7 +12,7 @@ export default function ProductScreen() {
     const {token} = useContext(UserContext);
     const navigate = useNavigate();
     useEffect(()=>{
-        axios.get(`http://localhost:5000/products/${id}`).then((r)=>{
+        axios.get(`https://projeto14-alidriven.herokuapp.com/products/${id}`).then((r)=>{
             setProduct(r.data);
         }).catch((r)=>{
             console.log(r);

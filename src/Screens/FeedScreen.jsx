@@ -21,7 +21,7 @@ export default function FeedScreen() {
     const [products,setProducts] = useState([]);
     const {token} = useContext(UserContext);
     useEffect(()=>{
-        axios.get('http://localhost:5000/products').then((r)=>{
+        axios.get('https://projeto14-alidriven.herokuapp.com/products').then((r)=>{
             setProducts(r.data);
         }).catch((r)=>{
             console.log(r);

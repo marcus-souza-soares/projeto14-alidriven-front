@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function SignIn() {
+    const navigate = useNavigate()
     const [disabled, setDisabled] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -34,16 +35,11 @@ export default function SignIn() {
             email,
             password
         }
-        const promise = axios.post("http://localhost:5000/cadastrar", dados);
+        const promise = axios.post("https://projeto14-alidriven.herokuapp.com/cadastrar", dados);
         promise.then(res => {
             console.log(res.data);
-<<<<<<< HEAD
             setDisabled(false)
             navigate('/signin');
-=======
-            setDisabled(false);
-            navigate("/signin");
->>>>>>> main
         })
         promise.catch(e => {
             console.log("Não foi possivel encontrar a rota")

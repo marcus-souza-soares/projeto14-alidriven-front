@@ -26,7 +26,7 @@ export default function PurchasesScreen() {
                 "Authorization": `Bearer ${token}`
             }
         }
-        axios.get(`http://localhost:5000/purchases`, config).then((r) => {
+        axios.get(`https://projeto14-alidriven.herokuapp.com/purchases`, config).then((r) => {
             setOrders(r.data);
         }).catch((r) => {
             console.log(r);

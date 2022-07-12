@@ -23,7 +23,7 @@ export default function CartScreen() {
             alert("Você não está logado, faça login primeiro!")
             navigate("/signin");            
         }
-        const promise = axios.get("http://localhost:5000/cart", permission);
+        const promise = axios.get("https://projeto14-alidriven.herokuapp.com/cart", permission);
         promise.then(res => {
             console.log(res.data);
             setCart_list(res.data.products);

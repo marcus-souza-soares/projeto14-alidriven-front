@@ -10,7 +10,7 @@ export default function Checkout({ checkout, setCheckout, listToBuy, value }) {
     const { setCart_list } = useContext(ProductContext)
     const { token } = useContext(UserContext)
     const navigate = useNavigate();
-    let payment = "";
+    const [payment, setPayment] = useState("");
     let select =
         [
             {
@@ -77,7 +77,7 @@ export default function Checkout({ checkout, setCheckout, listToBuy, value }) {
                     <div className="payment" key={i} onClick={() => {
                         check(i);
                         console.log(payment)
-                        payment = e.type;
+                        setPayment(e.type)
                     }}>
                         <div className="check" >
                             {e.checked ? <ion-icon name="checkmark-outline"></ion-icon> : null}

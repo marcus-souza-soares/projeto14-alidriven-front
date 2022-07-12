@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import UserContext from "../contexts/UserContexts.js";
 
 function loggingOut(setToken) {
+  
+
   // eslint-disable-next-line no-restricted-globals
   const logOut = (confirm('Você deseja deslogar?'));
   if (logOut) {
@@ -13,11 +15,13 @@ function loggingOut(setToken) {
 }
 
 export default function Header() {
+  const navigate = useNavigate()
   const { token, setToken } = useContext(UserContext);
   const [side_menu , setSide_menu ] = useState(false);
+
   return (
     <Container>
-      <div className="title">
+      <div className="title" onClick={() => navigate("/")}>
         <h1 className="yellow">Ali</h1>
         <h1 className="red">Driven</h1>
       </div>
